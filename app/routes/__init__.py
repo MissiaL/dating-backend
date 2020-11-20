@@ -45,3 +45,4 @@ def make_routes(
 
 
 api_routes = make_routes(api_paths.paths)
+services_routes = make_routes(services_paths.paths, include_in_schema=False)

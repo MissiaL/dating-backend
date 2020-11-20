@@ -16,7 +16,7 @@ class Settings(BaseSettings):
     # Environment settings
     env_name: str = 'development'
     debug: bool = True
-    sync_db: bool = False  # indicate synchronous mode for database
+    sync_db: bool = True  # indicate synchronous mode for database
     timezone: str = 'Europe/Moscow'
 
     # Database
@@ -27,6 +27,7 @@ class Settings(BaseSettings):
     postgres_password: str = 'dating'
     postgres_max_conn: int = 2
 
+    photo_storage = 'images'
     # Logging
     log_sql_queries: bool = False
 

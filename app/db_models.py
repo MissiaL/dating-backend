@@ -1,11 +1,11 @@
-from peewee import CharField, SmallIntegerField, BooleanField, TextField, DateTimeField, ForeignKeyField, IntegerField
+from peewee import CharField, SmallIntegerField, BooleanField, TextField, DateTimeField, ForeignKeyField, IntegerField, BlobField
 
 from app.database import BaseModel
 from app.utils import now_in_utc
 
 
 class User(BaseModel):
-    email = CharField()
+    email = CharField(unique=True)
     password = CharField()
     firstname = CharField()
     lastname = CharField()
@@ -33,7 +33,7 @@ class Cost(BaseModel):
 class Photo(BaseModel):
     user = ForeignKeyField(User, on_delete='CASCADE', backref='photos')
     is_main = BooleanField()
-    link = TextField()
+    image = TextField()
     created_at = DateTimeField(default=now_in_utc)
 
     class Meta:
@@ -42,8 +42,8 @@ class Photo(BaseModel):
 
 class Action(BaseModel):
     user = ForeignKeyField(User, on_delete='CASCADE', backref='actions')
-    like_to_user = ForeignKeyField(User, backref='actions')
-    dislike_to_user = ForeignKeyField(User, backref='actions')
+    like_to_user = ForeignKeyField(User, backref='actions', null=True)
+    dislike_to_user = ForeignKeyField(User, backref='actions', null=True)
     created_at = DateTimeField(default=now_in_utc)
 
     class Meta:

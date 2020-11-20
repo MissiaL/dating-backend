@@ -1,10 +1,9 @@
 from fastapi import FastAPI
 
-from api.crud import subapi
 from app.database import connect_database, close_database
 from app.logger.loguru_config import initialize_logger
 from app.middleware import LoggingMiddleware
-from app.routers import api_router
+from app.routers import api_router, probes_router
 from app.settings import settings
 from cli import cli
 
@@ -12,6 +11,7 @@ app = FastAPI(title=settings.app_name,
               debug=settings.debug)
 
 app.include_router(api_router)
+app.include_router(probes_router)
 
 app.add_middleware(LoggingMiddleware)
 

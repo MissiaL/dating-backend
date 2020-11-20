@@ -11,3 +11,5 @@ loguru
 peewee-async
 aiopg
 uvloop
+pytest
+python-multipart

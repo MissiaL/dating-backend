@@ -1,9 +1,9 @@
 from datetime import datetime
-from typing import List
+from typing import List, Optional
 
+from fastapi import UploadFile
 from pydantic import BaseModel, AnyUrl
 
-from api.utils import Str
 from app.response_models import ListModel, StatusModel
 
 
@@ -12,6 +12,9 @@ class PhotoResponse(BaseModel):
     is_main: bool
     link: AnyUrl
     created_at: datetime
+
+    class Config:
+        orm_mode = True
 
 
 class EnvelopedListOfPhotosResponse(ListModel):
@@ -28,5 +31,7 @@ class PhotoCreateRequest(BaseModel):
     image: bytes
 
 
-class PhotoUpdateRequest(PhotoCreateRequest):
-    ...
+class PhotoUpdateRequest(BaseModel):
+    user: int
+    is_main: Optional[bool]
+    image: Optional[bytes]
