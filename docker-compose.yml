@@ -1,0 +1,50 @@
+version: "3.4"
+
+services:
+  dating:
+    build:
+      context: .
+      target: dev_image
+    environment:
+      APP_PORT: 3000
+      POSTGRES_HOST: db
+      POSTGRES_DB: dating
+      POSTGRES_USER: dating
+      POSTGRES_PASSWORD: dating
+      IPYTHONDIR: /opt/.ipython
+    links:
+      - db
+    ports:
+      -  "${APP_PORT:-3000}:3000"  # runserver
+    depends_on:
+      - "db"
+
+    # `db` is loading much slower than `api`, so we need to wait for it.
+    #
+    # We can't use `depends_on`, `wait-for-it`, `nc -z db 5432`,
+    # because those things just checking service or port availability,
+    # not psql is up
+    #
+    # So there is only one way to 100% check that psql is up:
+    # we need to login into psql via wait-fo-db.sh
+    #command: ["make", "run"]
+    command: ["./wait-for-db.sh", "db", "make", "run"]
+    volumes:
+      - .:/opt:cached
+      - .bash_history:/root/.bash_history:cached
+
+  db:
+    image: postgres:11
+    environment:
+      POSTGRES_DB: dating
+      POSTGRES_USER: dating
+      POSTGRES_PASSWORD: dating
+    volumes:
+      - ./data:/var/lib/postgresql/data:cached
+      - .:/opt:cached
+    ports:
+    - 5432:5432
+
+    # This parameter accelerates tests very much, but does not guarantee writing data to the database
+    # https://pythonspeed.com/articles/faster-db-tests/
+    command: "-c fsync=off"

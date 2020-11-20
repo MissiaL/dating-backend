@@ -1,0 +1,13 @@
+fastapi
+pydantic[dotenv]
+peewee
+factory-boy
+requests
+funcy
+pytz
+click
+uvicorn
+loguru
+peewee-async
+aiopg
+uvloop
