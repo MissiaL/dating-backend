@@ -1,5 +1,5 @@
 FROM docker-proxy.tcsbank.ru/python:3.8-slim-buster as base_image
-WORKDIR /opt
+WORKDIR /app
 
 ENV http_proxy http://proxy.tcsbank.ru:8080
 ENV https_proxy http://proxy.tcsbank.ru:8080
