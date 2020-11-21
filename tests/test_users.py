@@ -36,6 +36,25 @@ class TestUsers:
 
         assert response.json()['data']
 
+    def test_get_user(self, client):
+        user = UserFactory.create()
+
+        url = app.url_path_for('get_user', user_id=user.id)
+        response = client.get(url, auth=(user.email, user.password))
+
+        assert response.status_code == HTTPStatus.OK
+
+        assert response.json()['data']
+
+    def test_get_user_non_auth(self, client):
+        user = UserFactory.create()
+
+        url = app.url_path_for('get_user', user_id=user.id)
+        response = client.get(url, auth=(user.email, '123'))
+
+        assert response.status_code == HTTPStatus.UNAUTHORIZED
+
+
     def test_update_user(self, client):
         user = UserFactory.create()
         url = app.url_path_for('update_user', user_id=user.id)

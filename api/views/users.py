@@ -1,7 +1,12 @@
 from http import HTTPStatus
 from uuid import UUID
 
+from fastapi import Depends,  HTTPException
+from fastapi.security import HTTPBasicCredentials
+from starlette.status import HTTP_401_UNAUTHORIZED
+
 from fastapi import Response
+from fastapi.security import HTTPBasic
 from funcy import first, invoke
 from peewee_async import execute
 
@@ -15,6 +20,20 @@ from .utils import (
 from ..models.user import EnvelopedListOfUsersResponse, EnvelopedUserResponse, UserCreateRequest, UserUpdateRequest, \
     UserResponse
 
+security = HTTPBasic()
+
+
+async def get_current_username(credentials: HTTPBasicCredentials = Depends(security)):
+    user = await get_or_404(User.select(), email=credentials.username)
+
+    if credentials.password != user.password:
+        raise HTTPException(
+            status_code=HTTP_401_UNAUTHORIZED,
+            detail="Incorrect email or password",
+            headers={"WWW-Authenticate": "Basic"},
+        )
+    return user.id
+
 
 @response_model(EnvelopedListOfUsersResponse)
 async def get_users() -> Response:
@@ -22,6 +41,12 @@ async def get_users() -> Response:
     return APIResponse(invoke(map(UserResponse.from_orm, users), 'dict'))
 
 
+@response_model(EnvelopedUserResponse)
+async def get_user(user_id: UUID = Depends(get_current_username)) -> Response:
+    user = await get_or_404(User.select(), id=user_id)
+    return APIResponse(
+        UserResponse.from_orm(user).dict(), status_code=HTTPStatus.OK
+    )
 
 @response_model(EnvelopedUserResponse, status_code=HTTPStatus.CREATED)
 async def create_user(data: UserCreateRequest) -> Response:

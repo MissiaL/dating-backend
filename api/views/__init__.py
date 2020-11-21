@@ -1,5 +1,5 @@
 from api.views.users import (
-    get_users, create_user, update_user, delete_user
+    get_users, get_user, create_user, update_user, delete_user
 )
 
 from api.views.costs import (

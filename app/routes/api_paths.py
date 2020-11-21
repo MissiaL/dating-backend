@@ -4,6 +4,7 @@ paths = {
     'users': [
         ('/users/', 'GET', views.get_users),
         ('/users/', 'POST', views.create_user),
+        ('/users/{user_id}/', 'GET', views.get_user),
         ('/users/{user_id}/', 'PATCH', views.update_user),
         ('/users/{user_id}/', 'DELETE', views.delete_user),
     ],
