@@ -4,7 +4,7 @@ from pathlib import Path
 from typing import Optional
 from uuid import UUID
 
-from fastapi import Response, UploadFile, File, Form
+from fastapi import Response, UploadFile, File, Form, Request
 from funcy import invoke, first
 from peewee_async import execute
 
@@ -25,7 +25,7 @@ async def get_photos() -> Response:
 
 
 @response_model(EnvelopedPhotoResponse, status_code=HTTPStatus.CREATED)
-async def create_photo(user: UUID = Form(...), is_main:bool = Form(...), image: UploadFile = File(...)) -> Response:
+async def create_photo(request: Request, user: UUID = Form(...), is_main:bool = Form(...), image: UploadFile = File(...)) -> Response:
     contents = await image.read()
     image_path = Path(settings.image_storage_name, str(user), image.filename)
 
@@ -34,7 +34,7 @@ async def create_photo(user: UUID = Form(...), is_main:bool = Form(...), image: 
     with storage_path.open("wb") as f:
         f.write(contents)
 
-    image_url = f'{settings.app_domain}/{image_path}'
+    image_url = f'{request.client.host}/{image_path}'
     user_id = await execute(Photo.insert(user=user, is_main=is_main, url=image_url))
 
     photo = first(await execute(Photo.filter(id=user_id)))
