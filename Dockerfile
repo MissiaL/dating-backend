@@ -1,4 +1,4 @@
-FROM python:3.8-slim-buster as base_image
+FROM docker-proxy.tcsbank.ru/python:3.8-slim-buster as base_image
 WORKDIR /opt
 # postgresql-client needed for `wait-for-db.sh` script
 RUN apt update && apt install -y make build-essential postgresql-client git
