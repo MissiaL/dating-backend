@@ -1,5 +1,9 @@
 FROM docker-proxy.tcsbank.ru/python:3.8-slim-buster as base_image
 WORKDIR /opt
+
+ENV http_proxy http://proxy.tcsbank.ru:8080
+ENV https_proxy http://proxy.tcsbank.ru:8080
+
 # postgresql-client needed for `wait-for-db.sh` script
 RUN apt update && apt install -y make build-essential postgresql-client git
 COPY requirements.txt requirements.txt
