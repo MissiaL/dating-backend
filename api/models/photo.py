@@ -13,7 +13,7 @@ class PhotoResponse(BaseModel):
     id: UUID
     user: ShortUserResponse
     is_main: bool
-    url: AnyUrl
+    url: str
     created_at: datetime
 
     class Config:

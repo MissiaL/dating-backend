@@ -29,6 +29,8 @@ class Settings(BaseSettings):
     postgres_password: str = 'dating'
     postgres_max_conn: int = 2
 
+    #cors
+    cors_allow_origins = 'http://dating-web-develop.hackecosystem.dev2.k8s.tcsbank.ru'
 
     # images_storage
     image_storage_name = 'images'

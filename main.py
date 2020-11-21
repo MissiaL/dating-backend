@@ -1,4 +1,5 @@
 from fastapi import FastAPI
+from starlette.middleware.cors import CORSMiddleware
 
 from app.database import connect_database, close_database
 from app.logger.loguru_config import initialize_logger
@@ -14,6 +15,15 @@ app.include_router(api_router)
 app.include_router(probes_router)
 
 app.add_middleware(LoggingMiddleware)
+
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=settings.cors_allow_origins.split(','),
+    allow_credentials=True,
+    allow_methods=["*"],
+    allow_headers=["*"],
+)
+
 
 initialize_logger()
 
