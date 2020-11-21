@@ -1,4 +1,5 @@
 from http import HTTPStatus
+from uuid import UUID
 
 from fastapi import Response
 from funcy import first, invoke
@@ -32,7 +33,7 @@ async def create_user(data: UserCreateRequest) -> Response:
 
 
 @response_model(EnvelopedUserResponse, status_code=HTTPStatus.OK)
-async def update_user(user_id: int, data: UserUpdateRequest) -> Response:
+async def update_user(user_id: UUID, data: UserUpdateRequest) -> Response:
     user = await get_or_404(User.select(), id=user_id)
 
     update_data = data.dict(exclude_unset=True)
@@ -43,7 +44,7 @@ async def update_user(user_id: int, data: UserUpdateRequest) -> Response:
 
 
 @response_model(status_code=HTTPStatus.NO_CONTENT)
-async def delete_user(user_id: int) -> Response:
+async def delete_user(user_id: UUID) -> Response:
     await get_or_404(User.select(), id=user_id)
     await execute(User.delete().where(User.id == user_id))
     return APIResponse(status_code=HTTPStatus.NO_CONTENT)

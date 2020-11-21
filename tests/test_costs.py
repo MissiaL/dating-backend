@@ -15,7 +15,7 @@ class TestCosts:
     def test_create_cost(self, client):
         user = UserFactory.create()
 
-        self.data.update({'user': user.id})
+        self.data.update({'user': str(user.id)})
 
         url = app.url_path_for('create_cost')
         response = client.post(url, json=self.data)
@@ -36,8 +36,8 @@ class TestCosts:
 
     def test_update_cost(self, client):
         cost = CostFactory.create()
-        url = app.url_path_for('update_cost', cost_id=cost.id)
-        response = client.patch(url, json={'name': 'хлеб', 'user': cost.user.id})
+        url = app.url_path_for('update_cost', cost_id=str(cost.id))
+        response = client.patch(url, json={'name': 'хлеб', 'user': str(cost.user.id)})
 
         assert response.status_code == HTTPStatus.OK
         assert response.json()['data']['name'] == 'хлеб'

@@ -1,5 +1,6 @@
 from datetime import datetime
 from typing import List, Optional
+from uuid import UUID
 
 from pydantic import BaseModel
 
@@ -9,6 +10,7 @@ from app.response_models import ListModel, StatusModel
 
 
 class CostResponse(BaseModel):
+    id: UUID
     user: ShortUserResponse
     name: str
     price: str
@@ -27,12 +29,12 @@ class EnvelopedCostResponse(StatusModel):
 
 
 class CostCreateRequest(BaseModel):
-    user: int
+    user: UUID
     name: str
     price: int
 
 
 class CostUpdateRequest(BaseModel):
-    user: int
+    user: UUID
     name: Optional[str]
     price: Optional[int]

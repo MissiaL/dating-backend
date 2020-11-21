@@ -2,12 +2,14 @@ from datetime import datetime
 from typing import List, Optional
 
 from pydantic import BaseModel
+from uuid import UUID
 
 from api.models.user import ShortUserResponse
 from app.response_models import ListModel, StatusModel
 
 
 class ActionResponse(BaseModel):
+    id: UUID
     user: ShortUserResponse
     like_to_user: Optional[ShortUserResponse]
     dislike_to_user: Optional[ShortUserResponse]
@@ -26,12 +28,12 @@ class EnvelopedActionResponse(StatusModel):
 
 
 class ActionCreateRequest(BaseModel):
-    user: int
-    like_to_user: Optional[int]
-    dislike_to_user: Optional[int]
+    user: UUID
+    like_to_user: Optional[UUID]
+    dislike_to_user: Optional[UUID]
 
 
 class ActionUpdateRequest(ActionCreateRequest):
-    user: int
-    like_to_user: Optional[int]
-    dislike_to_user: Optional[int]
+    user: UUID
+    like_to_user: Optional[UUID]
+    dislike_to_user: Optional[UUID]

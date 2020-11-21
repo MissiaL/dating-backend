@@ -1,4 +1,5 @@
 from http import HTTPStatus
+from uuid import UUID
 
 from fastapi import Response
 from funcy import invoke, first
@@ -30,7 +31,7 @@ async def create_message(data: MessageCreateRequest) -> Response:
 
 
 @response_model(EnvelopedMessageResponse, status_code=HTTPStatus.OK)
-async def update_message(message_id: int, data: MessageUpdateRequest) -> Response:
+async def update_message(message_id: UUID, data: MessageUpdateRequest) -> Response:
     message = await get_or_404(Message.select(), id=message_id)
 
     update_data = data.dict(exclude_unset=True)
@@ -41,7 +42,7 @@ async def update_message(message_id: int, data: MessageUpdateRequest) -> Respons
 
 
 @response_model(status_code=HTTPStatus.OK)
-async def delete_message(message_id: int) -> Response:
+async def delete_message(message_id: UUID) -> Response:
     await get_or_404(Message.select(), True)
     await execute(Message.delete().where(Message.id == message_id))
     return APIResponse(status_code=HTTPStatus.NO_CONTENT)

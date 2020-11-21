@@ -1,4 +1,5 @@
 from http import HTTPStatus
+from uuid import UUID
 
 from fastapi import Response
 from funcy import invoke, first
@@ -30,7 +31,7 @@ async def create_photo(data: PhotoCreateRequest) -> Response:
 
 
 @response_model(EnvelopedPhotoResponse, status_code=HTTPStatus.OK)
-async def update_photo(photo_id: int, data: PhotoUpdateRequest) -> Response:
+async def update_photo(photo_id: UUID, data: PhotoUpdateRequest) -> Response:
     user = await get_or_404(Photo.select(), True)
 
     update_data = data.dict(exclude_unset=True)
@@ -41,7 +42,7 @@ async def update_photo(photo_id: int, data: PhotoUpdateRequest) -> Response:
 
 
 @response_model(status_code=HTTPStatus.OK)
-async def delete_photo(photo_id: int) -> Response:
+async def delete_photo(photo_id: UUID) -> Response:
     await get_or_404(Photo.select(), True)
     await execute(Photo.delete().where(Photo.id == photo_id))
     return APIResponse(status_code=HTTPStatus.NO_CONTENT)

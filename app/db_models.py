@@ -1,10 +1,14 @@
-from peewee import CharField, SmallIntegerField, BooleanField, TextField, DateTimeField, ForeignKeyField, IntegerField, BlobField
+from uuid import uuid4
+
+from peewee import CharField, SmallIntegerField, BooleanField, TextField, DateTimeField, ForeignKeyField, IntegerField, \
+    BlobField, UUIDField
 
 from app.database import BaseModel
 from app.utils import now_in_utc
 
 
 class User(BaseModel):
+    id = UUIDField(primary_key=True, default=uuid4)
     email = CharField(unique=True)
     password = CharField()
     firstname = CharField()
@@ -21,6 +25,7 @@ class User(BaseModel):
 
 
 class Cost(BaseModel):
+    id = UUIDField(primary_key=True, default=uuid4)
     user = ForeignKeyField(User, on_delete='CASCADE', backref='costs')
     name = TextField()
     price = IntegerField(default=0)
@@ -31,6 +36,7 @@ class Cost(BaseModel):
 
 
 class Photo(BaseModel):
+    id = UUIDField(primary_key=True, default=uuid4)
     user = ForeignKeyField(User, on_delete='CASCADE', backref='photos')
     is_main = BooleanField()
     image = TextField()
@@ -41,6 +47,7 @@ class Photo(BaseModel):
 
 
 class Action(BaseModel):
+    id = UUIDField(primary_key=True, default=uuid4)
     user = ForeignKeyField(User, on_delete='CASCADE', backref='actions')
     like_to_user = ForeignKeyField(User, backref='actions', null=True)
     dislike_to_user = ForeignKeyField(User, backref='actions', null=True)
@@ -51,6 +58,7 @@ class Action(BaseModel):
 
 
 class Message(BaseModel):
+    id = UUIDField(primary_key=True, default=uuid4)
     user = ForeignKeyField(User, on_delete='CASCADE', backref='actions')
     to_user = ForeignKeyField(User, backref='actions')
     text = TextField()

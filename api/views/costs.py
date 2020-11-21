@@ -1,4 +1,5 @@
 from http import HTTPStatus
+from uuid import UUID
 
 from fastapi import Response
 from funcy import invoke, first
@@ -29,7 +30,7 @@ async def create_cost(data: CostCreateRequest) -> Response:
 
 
 @response_model(EnvelopedCostResponse, status_code=HTTPStatus.OK)
-async def update_cost(cost_id: int, data: CostUpdateRequest) -> Response:
+async def update_cost(cost_id: UUID, data: CostUpdateRequest) -> Response:
     cost = await get_or_404(Cost.select(), id=cost_id)
 
     update_data = data.dict(exclude_unset=True)
@@ -40,7 +41,7 @@ async def update_cost(cost_id: int, data: CostUpdateRequest) -> Response:
 
 
 @response_model(status_code=HTTPStatus.OK)
-async def delete_cost(cost_id: int) -> Response:
+async def delete_cost(cost_id: UUID) -> Response:
     await get_or_404(Cost.select(), True)
     await execute(Cost.delete().where(Cost.id == cost_id))
     return APIResponse(status_code=HTTPStatus.NO_CONTENT)

@@ -1,5 +1,6 @@
 from datetime import datetime
 from typing import List, Optional
+from uuid import UUID
 
 from pydantic import BaseModel
 
@@ -7,14 +8,14 @@ from api.utils import Str, Int16
 from app.response_models import ListModel, StatusModel
 
 class ShortUserResponse(BaseModel):
-    id: int
+    id: UUID
 
     class Config:
         orm_mode = True
 
 
 class UserResponse(BaseModel):
-    id: int
+    id: UUID
     email: Str
     firstname: Str
     age: Int16

@@ -1,5 +1,6 @@
 from datetime import datetime
 from typing import List, Optional
+from uuid import UUID
 
 from pydantic import BaseModel
 
@@ -9,6 +10,7 @@ from app.response_models import ListModel, StatusModel
 
 
 class MessageResponse(BaseModel):
+    id: UUID
     user: ShortUserResponse
     to_user: ShortUserResponse
     text: Str
@@ -27,12 +29,12 @@ class EnvelopedMessageResponse(StatusModel):
 
 
 class MessageCreateRequest(BaseModel):
-    user: int
-    to_user: int
+    user: UUID
+    to_user: UUID
     text: Str
 
 
 class MessageUpdateRequest(BaseModel):
-    user: int
-    to_user: Optional[int]
+    user: UUID
+    to_user: Optional[UUID]
     text: Optional[Str]

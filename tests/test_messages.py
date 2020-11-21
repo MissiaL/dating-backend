@@ -13,7 +13,7 @@ class TestMessages:
     def test_create_message(self, client):
         first_user = UserFactory.create()
         second_user = UserFactory.create()
-        self.data.update({'user':first_user.id, 'to_user':second_user.id})
+        self.data.update({'user':str(first_user.id), 'to_user':str(second_user.id)})
 
         url = app.url_path_for('create_message')
         response = client.post(url, json=self.data)
@@ -35,8 +35,8 @@ class TestMessages:
     def test_update_message(self, client):
         message = MessageFactory.create()
         message2 = MessageFactory.create()
-        url = app.url_path_for('update_message', message_id=message2.id)
-        response = client.patch(url, json={'text':'aaaa', 'user':message2.user.id})
+        url = app.url_path_for('update_message', message_id=str(message2.id))
+        response = client.patch(url, json={'text':'aaaa', 'user':str(message2.user.id)})
 
         assert response.status_code == HTTPStatus.OK
         assert response.json()['data']['text'] == 'aaaa'
