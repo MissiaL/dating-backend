@@ -15,7 +15,11 @@ module.exports = {
              internal: 4000
            },
 
-        env: {},
+        env: {
+          'POSTGRES_HOST':'m1-pg-hackecosystem.devops.tcsbank.ru',
+          'POSTGRES_USERNAME':'hackecosystem',
+          'POSTGRES_PASSWORD':process.env['POSTGRES_PASSWORD'],
+        },
       },
     ],
   },
