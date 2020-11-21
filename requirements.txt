@@ -13,3 +13,4 @@ aiopg
 uvloop
 pytest
 python-multipart
+aiofiles

@@ -45,7 +45,7 @@ class ActionFactory(PeeweeModelFactory):
 class PhotoFactory(PeeweeModelFactory):
     user = factory.SubFactory(UserFactory)
     is_main = factory.Faker('pybool')
-    link = factory.Faker('image_url')
+    url = factory.Faker('image_url')
 
     class Meta:
         model = Photo

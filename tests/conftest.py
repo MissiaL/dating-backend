@@ -1,3 +1,5 @@
+import pathlib
+
 from pytest import fixture
 from starlette.testclient import TestClient
 
@@ -26,3 +28,8 @@ def transaction(test_db):
     test_db.create_tables(BaseModel.__subclasses__())
     yield
     test_db.drop_tables(BaseModel.__subclasses__())
+
+@fixture()
+def image():
+    p = pathlib.Path(__file__).parent.absolute() / 'photo.jpg'
+    return p.open('rb')

@@ -2,17 +2,18 @@ from datetime import datetime
 from typing import List, Optional
 from uuid import UUID
 
-from fastapi import UploadFile
+from fastapi import UploadFile, File
 from pydantic import BaseModel, AnyUrl
 
+from api.models.user import ShortUserResponse
 from app.response_models import ListModel, StatusModel
 
 
 class PhotoResponse(BaseModel):
     id: UUID
-    user: int
+    user: ShortUserResponse
     is_main: bool
-    link: AnyUrl
+    url: AnyUrl
     created_at: datetime
 
     class Config:
@@ -30,10 +31,8 @@ class EnvelopedPhotoResponse(StatusModel):
 class PhotoCreateRequest(BaseModel):
     user: UUID
     is_main: bool
-    image: bytes
 
 
 class PhotoUpdateRequest(BaseModel):
     user: UUID
     is_main: Optional[bool]
-    image: Optional[bytes]

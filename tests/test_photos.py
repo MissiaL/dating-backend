@@ -4,29 +4,25 @@ import pytest
 
 from app.db_models import Photo
 from main import app
-from tests.factories import PhotoFactory
+from tests.factories import PhotoFactory, UserFactory
 
-@pytest.mark.skip()
+
+
 class TestPhotos:
-    data = {
-        'is_main': True,
-        'password': 'password',
-        'firstname': 'bob',
-        'lastname': 'marley',
-        'age': 25,
-        'gender': 'female',
-        'height': 170,
-        'is_smoke': False,
-        'hobbies': 2,
-    }
 
-    def test_create_photo(self, client):
+    def test_create_photo(self, client, image):
+        user = UserFactory.create()
         url = app.url_path_for('create_photo')
-        response = client.post(url, json=self.data)
+        multipart_form_data = {
+            'image': ('image.jpg', image),
+            'user': (None, str(user.id)),
+            'is_main': (None, 'false')
+        }
+        response = client.post(url, files=multipart_form_data)
         assert response.status_code == HTTPStatus.CREATED
 
         photo = Photo.get()
-        assert photo.email == self.data['email']
+        assert photo.id
 
     def test_get_photos(self, client):
         PhotoFactory.create_batch(size=3)
@@ -37,13 +33,6 @@ class TestPhotos:
         assert response.status_code == HTTPStatus.OK
 
         assert response.json()['data']
-
-    def test_update_photo(self, client):
-        photo = PhotoFactory.create()
-        url = app.url_path_for('update_photo', photo_id=photo.id)
-        response = client.patch(url, json={'firstname':'aaaa'})
-
-        assert response.status_code == HTTPStatus.OK
 
     def test_delete_photo(self, client):
         photo = PhotoFactory.create()

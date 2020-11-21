@@ -16,7 +16,6 @@ paths = {
     'photo': [
         ('/photos/', 'GET', views.get_photos),
         ('/photos/', 'POST', views.create_photo),
-        ('/photos/{photo_id}/', 'PATCH', views.update_photo),
         ('/photos/{photo_id}/', 'DELETE', views.delete_photo),
     ],
     'action': [
@@ -31,5 +30,10 @@ paths = {
         ('/messages/{message_id}/', 'PATCH', views.update_message),
         ('/messages/{message_id}/', 'DELETE', views.delete_message),
     ],
+
+    'image': [
+        ('/images/{user_id}/{filename}/', 'GET', views.get_image),
+    ],
+
 }
 

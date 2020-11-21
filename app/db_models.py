@@ -39,7 +39,7 @@ class Photo(BaseModel):
     id = UUIDField(primary_key=True, default=uuid4)
     user = ForeignKeyField(User, on_delete='CASCADE', backref='photos')
     is_main = BooleanField()
-    image = TextField()
+    url = TextField()
     created_at = DateTimeField(default=now_in_utc)
 
     class Meta:

@@ -1,4 +1,5 @@
 from logging import getLogger
+from pathlib import Path
 
 from pydantic import BaseSettings, ValidationError
 from dotenv import load_dotenv
@@ -9,6 +10,7 @@ load_dotenv()
 
 class Settings(BaseSettings):
     # App instance
+    app_uri: str = 'http'
     app_name: str = 'Dating Backend'
     app_host: str = '0.0.0.0'
     app_port: int = 3000
@@ -27,7 +29,18 @@ class Settings(BaseSettings):
     postgres_password: str = 'dating'
     postgres_max_conn: int = 2
 
-    photo_storage = 'images'
+
+    # images_storage
+    image_storage_name = 'images'
+
+    @property
+    def project_dir(self):
+        return Path(__file__).parent.parent.absolute()
+
+    @property
+    def images_dir(self):
+        return Path(self.project_dir, self.image_storage_name).absolute()
+
     # Logging
     log_sql_queries: bool = False
 

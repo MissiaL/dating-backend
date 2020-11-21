@@ -7,7 +7,7 @@ from api.views.costs import (
 )
 
 from api.views.photos import (
-    get_photos, create_photo, update_photo, delete_photo
+    get_photos, create_photo, delete_photo
 )
 
 from api.views.actions import (
@@ -16,4 +16,8 @@ from api.views.actions import (
 
 from api.views.messages import (
     get_messages, create_message,update_message, delete_message
+)
+
+from api.views.images import (
+    get_image,
 )
