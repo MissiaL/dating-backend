@@ -1,0 +1,11 @@
+stages:
+  - test
+  - build
+  - deploy
+  - finalize
+
+include:
+  - project: 'coretech-frontend/frontend-pipelines'
+    file: '/microservices/jobs/auto-deploy-dynamic-on-branches.yml'
+  - project: 'coretech-frontend/frontend-pipelines'
+    file: '/microservices/jobs/auto-deploy-production-on-master.yml'
