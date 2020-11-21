@@ -33,6 +33,7 @@ module.exports = {
         name: 'app',
         resources: {
           preset: 'nodejs-microservice',
+          replicas: 1,
         },
         ports: {
              external: 80,
