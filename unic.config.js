@@ -10,6 +10,11 @@ module.exports = {
         resources: {
           preset: 'nodejs-microservice',
         },
+         ports: {
+             external: 80,
+             internal: 4000
+           },
+
         env: {},
       },
     ],
