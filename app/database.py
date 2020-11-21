@@ -19,7 +19,7 @@ db.set_allow_sync(settings.sync_db)  # migrations are synchronous
 db_manager = DatabaseManager(db)
 db.init(
     settings.postgres_db,
-    user=settings.postgres_user,
+    user=settings.postgres_username,
     host=settings.postgres_host,
     port=settings.postgres_port,
     password=settings.postgres_password,

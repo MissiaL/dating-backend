@@ -25,7 +25,7 @@ class Settings(BaseSettings):
     postgres_host: str = 'localhost'
     postgres_port: str = 5432
     postgres_db: str = 'dating'
-    postgres_user: str = 'dating'
+    postgres_username: str = 'dating'
     postgres_password: str = 'dating'
     postgres_max_conn: int = 2
 
