@@ -16,7 +16,7 @@ module.exports = {
            },
 
         env: {
-          'APP_DOMAIN': `https://${process.env['CI_PROJECT_NAME']}.hackecosystem.dev2.k8s.tcsbank.ru`,
+          'APP_DOMAIN': `https://${process.env['CI_PROJECT_NAME']}-${process.env['CI_COMMIT_REF_NAME']}.hackecosystem.dev2.k8s.tcsbank.ru`,
           'POSTGRES_HOST':'m1-pg-hackecosystem.devops.tcsbank.ru',
           'POSTGRES_USERNAME':'hackecosystem',
           'POSTGRES_PASSWORD':process.env['POSTGRES_PASSWORD'],
@@ -46,4 +46,3 @@ module.exports = {
     ],
   },
 };
-console.log(process.env);
