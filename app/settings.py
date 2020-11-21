@@ -10,7 +10,7 @@ load_dotenv()
 
 class Settings(BaseSettings):
     # App instance
-    app_uri: str = 'http'
+    app_uri: str = 'https'
     app_name: str = 'Dating Backend'
     app_host: str = '0.0.0.0'
     app_port: int = 4000
