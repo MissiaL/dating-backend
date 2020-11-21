@@ -14,13 +14,11 @@ class Settings(BaseSettings):
     app_name: str = 'Dating Backend'
     app_host: str = '0.0.0.0'
     app_port: int = 4000
-    app_domain_name: str
-    app_domain_port: int
 
     # Environment settings
     env_name: str = 'development'
     debug: bool = True
-    sync_db: bool = False  # indicate synchronous mode for database
+    sync_db: bool = True  # indicate synchronous mode for database
     timezone: str = 'Europe/Moscow'
 
     # Database

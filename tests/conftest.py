@@ -15,7 +15,6 @@ def client():
 
 @fixture(autouse=True, scope="session")
 def test_db():
-    db.set_allow_sync(True)
     db.connect()
     tables = [db_models.User, db_models.Message, db_models.Photo, db_models.Cost, db_models.Action]
     db.drop_tables(tables)
@@ -24,13 +23,11 @@ def test_db():
     db.drop_tables(tables)
     db.close()
 
-
 @fixture(autouse=True)
 def transaction(test_db):
     test_db.create_tables(BaseModel.__subclasses__())
     yield
     test_db.drop_tables(BaseModel.__subclasses__())
-
 
 @fixture()
 def image():
