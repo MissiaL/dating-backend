@@ -1,5 +1,5 @@
 FROM docker-proxy.tcsbank.ru/python:3.8-slim-buster as base_image
-WORKDIR /app
+WORKDIR /opt
 
 ENV http_proxy http://proxy.tcsbank.ru:8080
 ENV https_proxy http://proxy.tcsbank.ru:8080
@@ -8,6 +8,7 @@ ENV https_proxy http://proxy.tcsbank.ru:8080
 RUN apt update && apt install -y make build-essential postgresql-client git
 COPY requirements.txt requirements.txt
 RUN python -m pip install -r requirements.txt -i https://registry.tcsbank.ru/repository/pypi.python.org/simple/ --trusted-host registry.tcsbank.ru --no-cache-dir
+ADD . .
 EXPOSE 4000
 CMD ["python", "main.py", "runserver"]
 
