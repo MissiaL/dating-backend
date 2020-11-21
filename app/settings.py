@@ -32,6 +32,7 @@ class Settings(BaseSettings):
 
     # images_storage
     image_storage_name = 'images'
+    app_domain: str
 
     @property
     def project_dir(self):
