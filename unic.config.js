@@ -34,7 +34,16 @@ module.exports = {
         resources: {
           preset: 'nodejs-microservice',
         },
-        env: {},
+        ports: {
+             external: 80,
+             internal: 4000
+           },
+
+        env: {
+          'POSTGRES_HOST':'m1-pg-hackecosystem.devops.tcsbank.ru',
+          'POSTGRES_USERNAME':'hackecosystem',
+          'POSTGRES_PASSWORD':process.env['POSTGRES_PASSWORD'],
+        },
       },
     ],
   },
