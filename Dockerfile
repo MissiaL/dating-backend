@@ -3,11 +3,11 @@ WORKDIR /opt
 # postgresql-client needed for `wait-for-db.sh` script
 RUN apt update && apt install -y make build-essential postgresql-client git
 COPY requirements.txt requirements.txt
-RUN python -m pip install -r requirements.txt --no-cache-dir --no-deps
+RUN python -m pip install -r requirements.txt -i https://registry.tcsbank.ru/repository/pypi.python.org/simple/ --trusted-host registry.tcsbank.ru --no-cache-dir --no-deps
 
 
 FROM base_image as dev_image
-RUN python -m pip install -r requirements.txt --no-cache-dir
+RUN python -m pip install -r requirements.txt -i https://registry.tcsbank.ru/repository/pypi.python.org/simple/ --trusted-host registry.tcsbank.ru --no-cache-dir
 CMD ["make", "run"]
 
 
