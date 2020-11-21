@@ -34,7 +34,7 @@ async def create_photo(user: UUID = Form(...), is_main:bool = Form(...), image: 
     with storage_path.open("wb") as f:
         f.write(contents)
 
-    image_url = f'{settings.app_uri}://{settings.app_host}:{settings.app_port}/{image_path}'
+    image_url = f'{settings.app_domain_name}:{settings.app_domain_port}/{image_path}'
     user_id = await execute(Photo.insert(user=user, is_main=is_main, url=image_url))
 
     photo = first(await execute(Photo.filter(id=user_id)))

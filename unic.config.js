@@ -16,8 +16,10 @@ module.exports = {
            },
 
         env: {
-          'POSTGRES_HOST':'m1-pg-hackecosystem.devops.tcsbank.ru',
-          'POSTGRES_USERNAME':'hackecosystem',
+          'APP_DOMAIN_NAME': `https://${process.env['CI_PROJECT_NAME']}.hackecosystem.dev2.k8s.tcsbank.ru`,
+          'APP_DOMAIN_PORT': 80,
+          'POSTGRES_HOST':process.env['POSTGRES_HOST'],
+          'POSTGRES_USERNAME':process.env['POSTGRES_USERNAME'],
           'POSTGRES_PASSWORD':process.env['POSTGRES_PASSWORD'],
         },
       },
@@ -34,7 +36,11 @@ module.exports = {
         resources: {
           preset: 'nodejs-microservice',
         },
-        env: {},
+        env: {
+          'POSTGRES_HOST':process.env['POSTGRES_HOST'],
+          'POSTGRES_USERNAME':process.env['POSTGRES_USERNAME'],
+          'POSTGRES_PASSWORD':process.env['POSTGRES_PASSWORD'],
+        },
       },
     ],
   },
