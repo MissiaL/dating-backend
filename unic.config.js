@@ -10,7 +10,7 @@ module.exports = {
         resources: {
           preset: 'nodejs-microservice',
         },
-         ports: {
+        ports: {
              external: 80,
              internal: 4000
            },
@@ -20,6 +20,12 @@ module.exports = {
           'POSTGRES_USERNAME':'hackecosystem',
           'POSTGRES_PASSWORD':process.env['POSTGRES_PASSWORD'],
         },
+        extensions: [
+             {
+               "kind": "cdn",
+               "staticDirectory": "./images"
+             }
+           ]
       },
     ],
   },

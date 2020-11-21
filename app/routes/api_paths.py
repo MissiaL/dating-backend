@@ -34,6 +34,8 @@ paths = {
     'image': [
         ('/images/{user_id}/{filename}/', 'GET', views.get_image),
     ],
-
+    'info': [
+        ('/info/', 'GET', views.get_env_info),
+    ],
 }
 

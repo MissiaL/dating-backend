@@ -21,3 +21,7 @@ from api.views.messages import (
 from api.views.images import (
     get_image,
 )
+
+from api.views.info import (
+    get_env_info,
+)
