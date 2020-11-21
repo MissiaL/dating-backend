@@ -13,7 +13,7 @@ class Settings(BaseSettings):
     app_uri: str = 'http'
     app_name: str = 'Dating Backend'
     app_host: str = '0.0.0.0'
-    app_port: int = 3000
+    app_port: int = 4000
 
     # Environment settings
     env_name: str = 'development'

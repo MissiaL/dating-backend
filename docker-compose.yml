@@ -6,7 +6,7 @@ services:
       context: .
       target: dev_image
     environment:
-      APP_PORT: 3000
+      APP_PORT: 4000
       POSTGRES_HOST: db
       POSTGRES_DB: dating
       POSTGRES_USER: dating
@@ -15,7 +15,7 @@ services:
     links:
       - db
     ports:
-      -  "${APP_PORT:-3000}:3000"  # runserver
+      -  "${APP_PORT:-4000}:4000"  # runserver
     depends_on:
       - "db"
 
