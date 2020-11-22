@@ -30,7 +30,7 @@ class Settings(BaseSettings):
     postgres_max_conn: int = 2
 
     #cors
-    cors_allow_origins = 'http://dating-web-develop.hackecosystem.dev2.k8s.tcsbank.ru,http://localhost:3000,http://127.0.0.1:3000,https://dating-web-develop.hackecosystem.dev2.k8s.tcsbank.ru'
+    cors_allow_origins = 'http://dating-web-develop.hackecosystem.dev2.k8s.tcsbank.ru,http://localhost:3000,http://127.0.0.1:3000,https://dating-web-develop.hackecosystem.dev2.k8s.tcsbank.ru,http://dating-web.hackecosystem.dev2.k8s.tcsbank.ru,https://dating-web.hackecosystem.dev2.k8s.tcsbank.ru'
 
     # images_storage
     image_storage_name = 'images'
