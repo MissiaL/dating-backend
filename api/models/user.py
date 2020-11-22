@@ -18,6 +18,7 @@ class UserResponse(BaseModel):
     id: UUID
     email: Str
     firstname: Str
+    lastname: Str
     age: Int16
     gender: Str
     height: Int16()
